@@ -104,6 +104,20 @@ input:focus {
 
 }
 
+.latest article {
+	width: 312px;
+	float: left;
+	display: block;
+	margin: 0px 6px;
+}
+
+section.latest {
+	width: 980px;
+	display: block;
+	height: 312px;
+	padding: 0px 3px;
+}
+
 /*------------------------------------*\
     PAGES
 \*------------------------------------*/
