@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+THIS IS AN ARTIST PAGE
 	<main role="main">
 	<!-- section -->
 	<section>
@@ -31,6 +31,9 @@
 			<span class="date"><?php the_time('F j, Y'); ?> <?php the_time('g:i a'); ?></span>
 			<!-- /post details -->
 
+			<?php the_content(); // Dynamic Content ?>
+			<?php edit_post_link(); // Always handy to have Edit Post Links available ?>
+
 		</article>
 		<!-- /article -->
 
@@ -47,16 +50,6 @@
 		<!-- /article -->
 
 	<?php endif; ?>
-    <?php
-        $tags = wp_get_post_tags( get_the_ID(), array( 'fields' => 'names' ) );
-        $artist_page = get_page_by_title( $tags[0], "OBJECT", "artist");
-    ?>
-    <artist>
-        <?php echo get_the_post_thumbnail($artist_page->ID, "thumbnail"); ?>
-        <div class='content'>
-            <?php echo $artist_page->post_content; ?>
-        </div>
-    </artist>
 
 	</section>
 	<!-- /section -->
