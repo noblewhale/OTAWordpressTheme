@@ -48,15 +48,33 @@
 
 	<?php endif; ?>
     <?php
-        $tags = wp_get_post_tags( get_the_ID(), array( 'fields' => 'names' ) );
-        $artist_page = get_page_by_title( $tags[0], "OBJECT", "artist");
+        $tags = wp_get_post_tags( get_the_ID() );
+        $tag = $tags[0]->name;
+        $tagID = $tags[0]->term_id;
+        $artist_page = get_page_by_title( $tag, "OBJECT", "artist");
     ?>
-    <artist>
+    <div class='artist'>
         <?php echo get_the_post_thumbnail($artist_page->ID, "thumbnail"); ?>
         <div class='content'>
             <?php echo $artist_page->post_content; ?>
         </div>
-    </artist>
+    </div>
+    <div class='tracklist'>
+        <?php $the_query = new WP_Query( 'tag_id='.$tagID); ?>
+	    <?php if ( $the_query->found_posts > 1 ): ?> 
+            <h1>Sessions</h1>
+            <ul>
+                <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+                    <li>
+                        <?php the_post_thumbnail("tiny"); ?>
+                        <h2><?php the_title(); ?></h2>
+                        <span><?php echo get_post_meta( get_the_ID(), 'duration', true ); ?></span>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        <?php endif; ?>
+        <?php wp_reset_postdata(); ?>
+    </div>
 
 	</section>
 	<!-- /section -->
