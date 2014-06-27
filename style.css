@@ -118,6 +118,39 @@ section.latest {
 	padding: 0px 3px;
 }
 
+.single section .left
+{
+	width: 490px;
+	vertical-align: top;
+}
+
+.single section .right
+{
+	width: 490px;
+	vertical-align: top;
+}
+
+.tracklist li
+{
+	margin: 6px 0px;
+}
+
+.tracklist img
+{
+	vertical-align: top;
+}
+
+.tracklist h2
+{
+	display: inline;
+}
+
+.track-info
+{
+	display: inline-block;
+	margin-left: 5px;
+}
+
 /*------------------------------------*\
     PAGES
 \*------------------------------------*/
