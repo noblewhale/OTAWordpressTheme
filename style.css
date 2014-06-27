@@ -145,10 +145,21 @@ section.latest {
 	display: inline;
 }
 
+.tracklist ul li a
+{
+	display: block;
+}
+
 .track-info
 {
 	display: inline-block;
 	margin-left: 5px;
+}
+
+.track-info h3
+{
+	padding: 0px;
+	margin: 0px;
 }
 
 /*------------------------------------*\

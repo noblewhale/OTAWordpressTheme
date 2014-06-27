@@ -5,14 +5,24 @@
         $videoID = get_post_meta( get_the_ID(), '_tern_wp_youtube_video', true );
         $title = get_the_title();
         preg_match('/&#8220;(.*)&#8221;/', $title, $song);
-        $song = $song[1];
-        preg_match('/^(.*)&#8220;/', $title, $artist);
-        $artist = $artist[1];
-              
+        if (count($song) > 0)
+        {
+          $song = $song[1];
+          preg_match('/^(.*)&#8220;/', $title, $artist);
+          $artist = $artist[1];
+        }
         $tags = wp_get_post_tags( get_the_ID() );
-        $tag = $tags[0]->name;
-        $tagID = $tags[0]->term_id;
-        $artist_page = get_page_by_title( $tag, "OBJECT", "artist" );
+        if (count($tags) > 0)
+        {
+          $tag = $tags[0]->name;
+          $tagID = $tags[0]->term_id;
+          $artist_page = get_page_by_title( $tag, "OBJECT", "artist" );
+        }
+
+        if (empty($artist_page))
+        {
+          $artist_page = get_page( get_the_ID() ); 
+        }
       ?>
       
       <!-- article -->
@@ -41,8 +51,12 @@
       <!-- post title -->
       <h1>
         <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-          <span class='artist'><?php echo $artist; ?></span>
-          <span class='song'>&#8220;<?php echo $song; ?>&#8221;</span>
+          <?php if ($song && $artist) : ?>
+            <span class='artist'><?php echo $artist; ?></span>
+            <span class='song'>&#8220;<?php echo $song; ?>&#8221;</span>
+          <?php else : ?>
+            <?php the_title(); ?>
+          <?php endif; ?>
         </a>
       </h1>
       
@@ -73,33 +87,42 @@
         </td>
         <td class='right'>
           <div class='tracklist'>
-            <?php $the_query = new WP_Query( 'tag_id='.$tagID); ?>
-            <?php if ( $the_query->found_posts > 1 ): ?> 
-              <h1>Sessions</h1>
-              <ul>
-                <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-                  <?php
-                    $t = get_the_title();
-                    preg_match('/&#8220;(.*)&#8221;/', $t, $song);
-                    $song = $song[0];
-                    $seconds = get_post_meta( get_the_ID(), 'duration', true );
-                    $minutes = (int)($seconds/60);
-                    $seconds = $seconds%60;
-                    if ($seconds < 10) $seconds = '0'.$seconds;
-                  ?>
-                  <li>
-                    <a href="<?php the_permalink(); ?>">
-                      <?php the_post_thumbnail("tiny"); ?>
-                      <div class='track-info'>
-                        <h2><?php echo $song; ?></h2>
-                        <div class='duration'><?php echo $minutes.":".$seconds; ?></div>
-                      </div>
-                    </a>
-                  </li>
-                <?php endwhile; ?>
-              </ul>
+            <?php if ($tagID) : ?>
+              <?php $the_query = new WP_Query( 'tag_id='.$tagID); ?>
+              <?php if ( $the_query->found_posts > 1 ): ?> 
+                <h1>Sessions</h1>
+                <ul>
+                  <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+                    <?php
+                      $t = get_the_title();
+                      preg_match('/&#8220;(.*)&#8221;/', $t, $song);
+
+                      // Skip posts with malformed titles that don't appear to contain a song name in quotes
+                      if (count($song) < 1) continue;
+
+                      $song = $song[1];
+                      preg_match('/^(.*)&#8220;/', $t, $artist);
+                      $artist = $artist[1];
+                      $seconds = get_post_meta( get_the_ID(), 'duration', true );
+                      $minutes = (int)($seconds/60);
+                      $seconds = $seconds%60;
+                      if ($seconds < 10) $seconds = '0'.$seconds;
+                    ?>
+                    <li>
+                      <a href="<?php the_permalink(); ?>">
+                        <?php the_post_thumbnail("tiny"); ?>
+                        <div class='track-info'>
+                          <h2><?php echo $song; ?></h2>
+                          <h3><?php echo $artist; ?></h3>
+                          <div class='duration'><?php echo $minutes.":".$seconds; ?></div>
+                        </div>
+                      </a>
+                    </li>
+                  <?php endwhile; ?>
+                </ul>
+              <?php endif; ?>
+              <?php wp_reset_postdata(); ?>
             <?php endif; ?>
-            <?php wp_reset_postdata(); ?>
           </div>
         </td>
       </tr>

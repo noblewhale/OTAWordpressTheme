@@ -32,6 +32,30 @@ function themeslug_theme_customizer( $wp_customize )
 }
 add_action('customize_register', 'themeslug_theme_customizer');
 
+function __search_by_title_only( $search, &$wp_query )
+{
+  global $wpdb;
+  if ( empty( $search ) )
+    return $search; // skip processing - no search term in query
+  
+  $q = $wp_query->query_vars;
+  $n = ! empty( $q['exact'] ) ? '' : '%';
+  $search =
+  $searchand = '';
+  foreach ( (array) $q['search_terms'] as $term ) {
+    $term = esc_sql( like_escape( $term ) );
+    $search .= "{$searchand}($wpdb->posts.post_title LIKE '{$n}{$term}{$n}')";
+    $searchand = ' AND ';
+  }
+  if ( ! empty( $search ) ) {
+    $search = " AND ({$search}) ";
+    if ( ! is_user_logged_in() )
+      $search .= " AND ($wpdb->posts.post_password = '') ";
+  }
+  return $search;
+}
+add_filter( 'posts_search', '__search_by_title_only', 500, 2 );
+
 if (!isset($content_width))
 {
     $content_width = 900;
@@ -190,6 +214,17 @@ function add_slug_to_body_class($classes)
 // If Dynamic Sidebar Exists
 if (function_exists('register_sidebar'))
 {
+    // Define Header Widget
+    register_sidebar(array(
+        'name' => __('Header Widget', 'html5blank'),
+        'description' => __('Widget area in the header', 'html5blank'),
+        'id' => 'widget-area-header',
+        'before_widget' => '<div id="%1$s" class="%2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>'
+    ));
+
     // Define Sidebar Widget Area 1
     register_sidebar(array(
         'name' => __('Widget Area 1', 'html5blank'),
@@ -418,6 +453,22 @@ function create_post_type_html5()
 {
     register_taxonomy_for_object_type('category', 'html5-blank'); // Register Taxonomies for Category
     register_taxonomy_for_object_type('post_tag', 'html5-blank');
+    register_taxonomy(
+      'artist',
+      array('post'),
+      array(
+        'labels' => array(
+          'name' => 'Artists',
+          'singluar_name' => 'Artist'
+        ),
+        'public' => true,
+        'show_in_nav_menus' => true,
+        'show_ui' => true,
+        'show_tagcloud' => false,
+        'hierarchical' => false,
+        'rewrite' => array('slug' => 'artist', 'with_front' => true)
+      )
+    );
     register_post_type('artist', // Register Custom Post Type
         array(
         'labels' => array(
@@ -434,6 +485,7 @@ function create_post_type_html5()
             'not_found' => __('No Artist Posts found', 'html5blank'),
             'not_found_in_trash' => __('No Artist Posts found in Trash', 'html5blank')
         ),
+        'exclude_from_search' => true,
         'public' => true,
         'hierarchical' => false, // Allows your posts to behave like Hierarchy Pages
         'has_archive' => true,

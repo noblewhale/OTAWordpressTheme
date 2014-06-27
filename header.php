@@ -46,6 +46,9 @@
                     <?php endif; ?>
 					<!-- /logo -->
 
+	        <div class="sidebar-widget">
+        		<?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('widget-area-header')) ?>
+        	</div>
 					<!-- nav -->
 					<nav class="nav" role="navigation">
 						<?php html5blank_nav(); ?>
