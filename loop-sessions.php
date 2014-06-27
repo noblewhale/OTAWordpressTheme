@@ -1,5 +1,14 @@
+<?php
+  $startLetter = '';
+?>
 <?php if (have_posts()): while (have_posts()) : the_post(); ?>
-
+  <?php $title = get_the_title(); ?>
+  <?php if ($_GET['cat'] == 0 && ucfirst($title[0]) != $currentLetter) : ?>
+    <?php $currentLetter = ucfirst($title[0]); ?>
+    <h1 class='letter'>
+      <?php echo $currentLetter; ?>
+    </h1>
+  <?php endif; ?>
 	<!-- article -->
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 

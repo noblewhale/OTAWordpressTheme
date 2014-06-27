@@ -73,6 +73,22 @@ input:focus {
     STRUCTURE
 \*------------------------------------*/
 
+nav ul
+{
+	list-style-type: none;
+}
+
+nav ul li
+{
+	float: left;
+	padding: 10px;
+}
+
+nav .menu-item 
+{
+	font-size: 2em;
+}
+
 /* wrapper */
 .wrapper {
 	max-width:980px;
@@ -82,7 +98,7 @@ input:focus {
 }
 /* header */
 .header {
-
+	position: relative;
 }
 /* logo */
 .logo {
@@ -108,7 +124,7 @@ input:focus {
 	width: 312px;
 	float: left;
 	display: block;
-	margin: 0px 6px;
+	margin: 6px;
 }
 
 section.latest {
@@ -120,13 +136,13 @@ section.latest {
 
 .single .left
 {
-	width: 490px;
+	width: 550px;
 	vertical-align: top;
 }
 
 .single .right
 {
-	width: 490px;
+	width: 430px;
 	vertical-align: top;
 }
 
@@ -162,11 +178,118 @@ section.latest {
 	margin: 0px;
 }
 
+.search .post 
+{ 
+	float: left; 
+	width: 220px;
+	height: 220px;
+	border: none; 
+	margin: 10px; 
+}
+
+.search .post img 
+{ 
+	width: 220px; 
+	height: 220px; 
+	border: none; 
+}
+
+.search .pagination 
+{ 
+	clear: both; 
+}
+
+.widget_search
+{
+	position: absolute;
+	bottom: 10px;
+	right: 0px;
+}
+
+.site-logo
+{
+	display: inline-block;
+}
+
 /*------------------------------------*\
     PAGES
 \*------------------------------------*/
 
+.sessions .title
+{
+	position: relative;
+}
 
+.sessions .title select
+{
+	position: absolute;
+	top: 6px;
+	right: 0px;
+}
+
+.post 
+{
+	position: relative;
+}
+
+.post h2
+{
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	z-index: 2;
+	padding: 10px;
+	margin: 0px;
+}
+
+.post h2 a
+{
+	color: white;
+}
+
+.post h2.transparent-background
+{
+	opacity: .4;
+	background-color: black;
+	z-index: 1;
+}
+
+.sessions .post 
+{ 
+	float: left; 
+	width: 220px;
+	height: 220px;
+	margin: 10px;
+	border: none; 
+}
+
+.sessions .post img 
+{ 
+	width: 220px; 
+	height: 220px; 
+	border: none; 
+}
+
+
+.sessions .letter
+{
+	font-weight: bold;
+	clear: both;
+	padding-top: 10px;
+}
+
+footer
+{ 
+	clear: both; 
+}
+
+.bc-plugin-product.my-product 
+{
+	float: left;
+	width: 220px;
+	height: 220px;
+	margin: 10px;
+}
 
 /*------------------------------------*\
     IMAGES
