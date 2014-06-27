@@ -118,13 +118,13 @@ section.latest {
 	padding: 0px 3px;
 }
 
-.single section .left
+.single .left
 {
 	width: 490px;
 	vertical-align: top;
 }
 
-.single section .right
+.single .right
 {
 	width: 490px;
 	vertical-align: top;
