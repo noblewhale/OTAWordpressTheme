@@ -4,12 +4,19 @@
 	<section>
 
 	<?php if (have_posts()): while (have_posts()) : the_post(); ?>
+        <?php
+            $videoID = get_post_meta( get_the_ID(), '_tern_wp_youtube_video', true );
+            $title = get_the_title();
+            preg_match('/&#8220;(.*)&#8221;/', $title, $song);
+            $song = $song[1];
+            preg_match('/^(.*)&#8220;/', $title, $artist);
+            $artist = $artist[1];
+        ?>
 
 		<!-- article -->
 		<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-            <?php if ( get_post_meta( get_the_ID(), '_tern_wp_youtube_video', true ) ) : ?>
-                <?php $videoID = get_post_meta( get_the_ID(), '_tern_wp_youtube_video', true ); ?>
+            <?php if ( $videoID ) : ?>
                 <iframe 
                     width="980" 
                     height="551" 
@@ -27,7 +34,10 @@
 
 			<!-- post title -->
 			<h1>
-				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
+				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+                    <span class='artist'><?php echo $artist; ?></span>
+                    <span class='song'>&#8220;<?php echo $song; ?>&#8221;</span>
+                </a>
 			</h1>
 			<!-- /post title -->
 
