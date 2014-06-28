@@ -69,6 +69,10 @@ input:focus {
 	border:1px solid #04A4CC;
 }
 
+.copyright {
+	text-align: right;
+}
+
 /*------------------------------------*\
     STRUCTURE
 \*------------------------------------*/
@@ -128,10 +132,26 @@ nav .menu-item
 }
 
 section.latest {
+	clear: both;
 	width: 980px;
 	display: block;
-	height: 312px;
+	height: 370px;
 	padding: 0px 3px;
+}
+
+section.upcoming {
+	clear: both;
+	width: 980px;
+	display: block;
+	height: 370px;
+	padding: 0px 3px;
+}
+
+.upcoming article {
+	width: 312px;
+	float: left;
+	display: block;
+	margin: 6px;
 }
 
 .single .left
@@ -209,6 +229,69 @@ section.latest {
 .site-logo
 {
 	display: inline-block;
+}
+
+.middle-widget
+{
+	width: 50%;
+	height: 214px;
+	float: left;
+}
+
+.middle-widget .widget_text, .middle-widget .widget_text .textwidget
+{
+	height: 214px;
+}
+
+
+.middle-widget .textwidget
+{
+	text-align: center;
+	vertical-align: middle;
+}
+
+.middle-widget .textwidget a
+{
+	vertical-align: middle;
+	line-height: 214px;
+	font-size: 3em;
+	font-weight: bold;
+}
+.advs-title.artist
+{
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+}
+.advs-title.artist a
+{
+	font-size: .8em !important;
+	margin-top: 0px !important;
+}
+
+.advs-title.song
+{
+	margin-bottom: 0px !important;
+}
+
+.advs-title.song a
+{
+	margin-bottom: 0px !important;
+}
+
+.advps-excerpt-one
+{
+	height: auto !important;
+}
+
+.latest .post .artist
+{
+	font-size: .8em;
+	font-weight: bold;
+}
+
+.latest .post .song
+{
+	display: block;
 }
 
 /*------------------------------------*\

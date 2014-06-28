@@ -11,12 +11,22 @@
 		<?php endif; ?>
 		<!-- /post thumbnail -->
 
+    <?php
+      $artist = preg_replace('/ ("|\'|&).*/', '', get_the_title());
+      preg_match('/("|\'|;)(.*)("|\'|&)/', get_the_title(), $song);
+      $song = $song[2];
+    ?>
+
 		<!-- post title -->
 		<h2>
-			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a>
+			<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+        <span class='song'><?php echo $song; ?></span>
+        <span class='artist'><?php echo $artist; ?></span>
+      </a>
 		</h2>
 		<h2 class='transparent-background'>
-			<?php the_title(); ?>
+        <span class='song'><?php echo $song; ?></span>
+        <span class='artist'><?php echo $artist; ?></span>
 		</h2>
 		<!-- /post title -->
 

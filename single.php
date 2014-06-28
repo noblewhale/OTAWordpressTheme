@@ -51,6 +51,7 @@
           }
           $wikiSummary = $pages[0]->extract;
 
+          // Grab the thumbnail
           $options = '&prop=pageimages&format=json&pithumbsize=548';
           $curl = curl_init($service_url.$options);
           curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -102,31 +103,36 @@
       <tr>
         <td class='left'>
         
-      <!-- post title -->
-      <h1>
-        <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-          <?php if ($song && $artist) : ?>
-            <span class='artist'><?php echo $artist; ?></span>
-            <span class='song'>&#8220;<?php echo $song; ?>&#8221;</span>
-          <?php else : ?>
-            <?php the_title(); ?>
-          <?php endif; ?>
-        </a>
-      </h1>
-      
-      <!-- post date -->
-      <span class="date"><?php the_date(); ?></span>
+          <!-- post title -->
+          <h1>
+            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+              <?php if ($song && $artist) : ?>
+                <span class='artist'><?php echo $artist; ?></span>
+                <span class='song'>&#8220;<?php echo $song; ?>&#8221;</span>
+              <?php else : ?>
+                <?php the_title(); ?>
+              <?php endif; ?>
+            </a>
+          </h1>
+          
+          <!-- post date -->
+          <span class="date"><?php the_date(); ?></span>
+    
           <div class='artist'>
+
             <?php if ($hasArtistPage) : ?>
-                <?php echo get_the_post_thumbnail($artist_page->ID, "fullsize"); ?> 
+              <?php echo get_the_post_thumbnail($artist_page->ID, "fullsize"); ?> 
             <?php else : ?>
-                <img src='<?php echo $wikipediaImageURL; ?>' />
+              <img src='<?php echo $wikipediaImageURL; ?>' />
             <?php endif; ?>
+
             <div class='content'>
-              <?php echo $artist_page->post_content; ?>
+              <?php echo format_content($artist_page->post_content); ?>
               <?php if (!$hasArtistPage) echo $wikiSummary; ?>
             </div>
+
           </div>
+
         </td>
         <td class='right'>
           <div class='tracklist'>

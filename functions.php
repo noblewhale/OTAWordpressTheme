@@ -15,6 +15,13 @@
 	Theme Support
 \*------------------------------------*/
 
+function format_content($content)
+{
+  $content = apply_filters('the_content', $content);
+  $content = str_replace(']]>', ']]&gt;', $content);
+  return $content;
+}
+
 function themeslug_theme_customizer( $wp_customize ) 
 {
     // Fun code will go here
