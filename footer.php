@@ -1,3 +1,6 @@
+
+		</div>
+		<!-- /wrapper -->
 			<!-- footer -->
 			<footer class="footer" role="contentinfo">
 
@@ -10,9 +13,7 @@
 			</footer>
 			<!-- /footer -->
 
-		</div>
-		<!-- /wrapper -->
-
+<!-- /wrapper outer -->
 		<?php wp_footer(); ?>
 
 		<!-- analytics -->

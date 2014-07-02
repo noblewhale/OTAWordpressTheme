@@ -15,6 +15,31 @@
 	Theme Support
 \*------------------------------------*/
 
+/**
+ * Song is assumed to be the contents of the last set of quotes
+ * Artist is assumed to be the rest
+ */
+function getArtistAndSong($t)
+{
+  $lookFor = '&#034;';
+  $endIndex = strrpos($t, $lookFor);
+  if ($endIndex) 
+  {
+    $startIndex = strrpos($t, $lookFor, -(strlen($t)-$endIndex+1));
+    $artist = trim(substr($t, 0, $startIndex));
+
+    $startIndex += 5;
+    $song = substr($t, $startIndex+1, ($endIndex - $startIndex - 1));
+  }
+  else
+  {
+    $song = $t;
+    $artist = "";
+  }
+
+  return array($artist, $song);
+}
+
 function format_content($content)
 {
   $content = apply_filters('the_content', $content);
@@ -164,7 +189,7 @@ function html5blank_conditional_scripts()
 // Load HTML5 Blank styles
 function html5blank_styles()
 {
-    wp_register_style('normalize', get_template_directory_uri() . '/normalize.css', array(), '1.0', 'all');
+    wp_register_style('normalize', get_template_directory_uri() . '/normalize.min.css', array(), '1.0', 'all');
     wp_enqueue_style('normalize'); // Enqueue it!
 
     wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
@@ -248,6 +273,17 @@ if (function_exists('register_sidebar'))
         'name' => __('Widget Area 2', 'html5blank'),
         'description' => __('Description for this widget-area...', 'html5blank'),
         'id' => 'widget-area-2',
+        'before_widget' => '<div id="%1$s" class="%2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>'
+    ));
+
+    // Define Post Sidebar Widget Area
+    register_sidebar(array(
+        'name' => __('Widget Area Post Sidebar', 'html5blank'),
+        'description' => __('Description for this widget-area...', 'html5blank'),
+        'id' => 'widget-area-post-sidebar',
         'before_widget' => '<div id="%1$s" class="%2$s">',
         'after_widget' => '</div>',
         'before_title' => '<h3>',
@@ -466,14 +502,24 @@ function create_post_type_html5()
       array(
         'labels' => array(
           'name' => 'Artists',
-          'singluar_name' => 'Artist'
+          'singular_name' => 'Artist'
         ),
         'public' => true,
-        'show_in_nav_menus' => true,
-        'show_ui' => true,
-        'show_tagcloud' => false,
-        'hierarchical' => false,
-        'rewrite' => array('slug' => 'artist', 'with_front' => true)
+        'query_var'=> true,
+        'rewrite' => false//array('slug' => 'artist', 'with_front' => true)
+      )
+    );
+    register_taxonomy(
+      'special_session',
+      array('post'),
+      array(
+        'labels' => array(
+          'name' => 'Special Sesssions',
+          'singular_name' => 'Special Session'
+        ),
+        'public' => true,
+        'query_var'=> true,
+        'rewrite' => false//array('slug' => 'artist', 'with_front' => true)
       )
     );
     register_post_type('artist', // Register Custom Post Type

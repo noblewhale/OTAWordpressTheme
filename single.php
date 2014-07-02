@@ -2,22 +2,27 @@
   <main role="main">
     <?php if (have_posts()): while (have_posts()) : the_post(); ?>
       <?php
+        $currentPostID = get_the_ID();
         $videoID = get_post_meta( get_the_ID(), '_tern_wp_youtube_video', true );
         $title = get_the_title();
-        preg_match('/&#8220;(.*?)&#8221;/', $title, $song);
-        if (count($song) > 0)
+      
+        list($artist, $song) = getArtistAndSong($title);
+
+        $artistTerms = wp_get_object_terms( get_the_ID(), 'artist' );
+        if (count($artistTerms) > 0)
         {
-          $song = $song[1];
-          preg_match('/^(.*?) &#8220;/s', $title, $artist);
-          $artist = $artist[1];
+          $artistSlug = $artistTerms[0]->name;
+          $artistID = $artistTerms[0]->term_id;
+          $artist_page = get_page_by_title( $artistSlug, "OBJECT", "artist" );
         }
-        $tags = wp_get_object_terms( get_the_ID(), 'artist' );
-        if (count($tags) > 0)
+
+        $specialSessionTerms = wp_get_object_terms( get_the_ID(), 'special_session' );
+        foreach ($specialSessionTerms as $specialSessionTerm)
         {
-          $tag = $tags[0]->name;
-          $tagID = $tags[0]->term_id;
-          $artist_page = get_page_by_title( $tag, "OBJECT", "artist" );
+          $specialSessions[] = $specialSessionTerm->term_id;
         }
+
+        $cats = wp_get_post_categories( get_the_ID() );
 
         $hasArtistPage = true;
         if (empty($artist_page))
@@ -25,12 +30,19 @@
           $artist_page = get_page( get_the_ID() ); 
           $hasArtistPage = false;
         }
+        else
+        {
+          $artistThumbnail = get_the_post_thumbnail($artist_page->ID, "fullsize");
+        }
+        
+        $hasExternalLinks = get_post_meta( get_the_ID(), 'external_link_url0', true) != ""; 
 
         if ($artist)
         {
           // Check for disambiguated _(band) version of article first to avoid serving the wrong article for common words like 'yacht'
           $service_url = 'http://en.wikipedia.org/w/api.php?format=json&action=query&titles='.(urlencode(ucwords(strtolower($artist)))).'_(band)';
           $options = '&prop=revisions&prop=extracts&exintro';
+          $wikiLink = 'http://en.wikipedia.org/wiki/'.(urlencode(ucwords(strtolower($artist)))).'_(band)';
           $curl = curl_init($service_url.$options);
           curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
           $curl_response = curl_exec($curl);
@@ -41,6 +53,7 @@
           if (property_exists($pages[0], "missing")) 
           {
             $service_url = 'http://en.wikipedia.org/w/api.php?format=json&action=query&titles='.(urlencode(ucwords(strtolower($artist))));
+            $wikiLink = 'http://en.wikipedia.org/wiki/'.ucwords(strtolower($artist));
             $curl = curl_init($service_url.$options);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             $curl_response = curl_exec($curl);
@@ -103,55 +116,93 @@
       <tr>
         <td class='left'>
         
-          <!-- post title -->
-          <h1>
-            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-              <?php if ($song && $artist) : ?>
-                <span class='artist'><?php echo $artist; ?></span>
-                <span class='song'>&#8220;<?php echo $song; ?>&#8221;</span>
-              <?php else : ?>
-                <?php the_title(); ?>
-              <?php endif; ?>
-            </a>
-          </h1>
-          
-          <!-- post date -->
+          <!-- Session date -->
           <span class="date"><?php the_date(); ?></span>
     
+          <!-- post title -->
+            <a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+              <?php if ($song && $artist) : ?>
+                <h1 class='song'><?php echo $song; ?></h1>
+                <h2 class='artist'><?php echo $artist; ?></h2>
+              <?php else : ?>
+                <h1>
+                  <?php the_title(); ?>
+                </h1>
+              <?php endif; ?>
+            </a>
+          
+          <!-- Artist info -->
           <div class='artist'>
 
-            <?php if ($hasArtistPage) : ?>
-              <?php echo get_the_post_thumbnail($artist_page->ID, "fullsize"); ?> 
-            <?php else : ?>
-              <img src='<?php echo $wikipediaImageURL; ?>' />
+            <!-- Artist photo -->
+            <div class='artist-photo'>
+              <?php if ($artistThumbnail) : ?>
+                <?php echo $artistThumbnail; ?> 
+              <?php else : ?>
+                <img src='<?php echo $wikipediaImageURL; ?>' />
+              <?php endif; ?>
+            </div>
+          
+            <!-- External links -->
+            <?php if ($hasExternalLinks) : ?>
+              <div class='external-links-outer'>
+                <?php for ($i=0; $i < 5; $i++) : ?>
+                  <?php if (get_post_meta( get_the_ID(), 'external_link_url'.$i, true) ) : ?>
+                    <div class='external-links'>
+                      <?php echo wp_get_attachment_image( get_post_meta( get_the_ID(), 'external_link_icon'.$i, true), 32, true); ?>
+                      <a rel='nofollow' target='_blank' href='<?php echo get_post_meta(get_the_ID(), 'external_link_url'.$i, true); ?>'>
+                        <?php echo get_post_meta(get_the_ID(), 'external_link_label'.$i, true); ?>
+                      </a>
+                    </div>
+                  <?php endif; ?>
+                <?php endfor; ?>
+              </div>
             <?php endif; ?>
 
-            <div class='content'>
+            <!-- Content -->
+            <div class='content <?php if ($artistThumbnail || $wikipediaImageURL) echo 'clear-both'; ?>'>
               <?php echo format_content($artist_page->post_content); ?>
-              <?php if (!$hasArtistPage) echo $wikiSummary; ?>
+              <?php if (!$hasArtistPage && !empty($wikiSummary)) : echo $wikiSummary; ?>
+                <span class='wiki-link'>
+                  <a href='<?php echo $wikiLink; ?>'>Read more..</a>
+                </span>
+              <?php endif; ?>
             </div>
 
           </div>
-
         </td>
+        
+        <!-- Right column. Track list, recommended sessions, widget space. -->
         <td class='right'>
+
+          <!-- Tracklist -->
           <div class='tracklist'>
-            <?php if ($tagID) : ?>
-              <?php $the_query = new WP_Query( array('tag_id'=>$tagID, 'posts_per_page'=>20) ); ?>
+            <?php if (true || $artistID) : ?>
+              <?php 
+                $the_query = new WP_Query( array(
+                  'artist' => $artistSlug ,
+                  'tax_query' => array(
+                    'relation' => 'OR',
+                    array(
+                      'taxonomy' => 'special_session',
+                      'field' => 'id',
+                      'terms' => $specialSessions
+                    )
+                  ),
+                  'posts_per_page' => 20
+                ) );
+              ?>
               <?php if ( $the_query->found_posts > 1 ): ?> 
                 <h1>Sessions</h1>
                 <ul>
                   <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
                     <?php
                       $t = get_the_title();
-                      preg_match('/&#8220;(.*?)&#8221;/', $t, $song);
+                      
+                      list($artist, $song) = getArtistAndSong( $t ); 
+                      
+                      if (empty($song)) continue;
 
-                      // Skip posts with malformed titles that don't appear to contain a song name in quotes
-                      if (count($song) < 1) continue;
-
-                      $song = $song[1];
-                      preg_match('/^(.*?) &#8220;/', $t, $artist);
-                      $artist = $artist[1];
                       $seconds = get_post_meta( get_the_ID(), 'duration', true );
                       $minutes = (int)($seconds/60);
                       $seconds = $seconds%60;
@@ -173,6 +224,59 @@
               <?php wp_reset_postdata(); ?>
             <?php endif; ?>
           </div>
+          <div class='recommended'>
+            <?php if (!empty($cats) && $artistID) : ?>
+              <?php 
+                $the_query = new WP_Query(array( 
+                  'tax_query' => array(
+                    array(
+                      'taxonomy' => 'artist',
+                      'field' => 'id',
+                      'terms' => array( $artistID ),
+                      'operator' => 'NOT IN'
+                    )
+                  ),
+                  'category__in'=>$cats, 
+                  'posts_per_page'=>5, 
+                  'post__not_in'=>array($currentPostID)
+                )); 
+              ?>
+              <?php if ( $the_query->found_posts > 0 ): ?> 
+                <h1>Recommended</h1>
+                <ul>
+                  <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+                    <?php
+                      $t = get_the_title();
+
+                      list($artist, $song) = getArtistAndSong( $t ); 
+                      
+                      if (empty($song)) continue;
+
+                      $seconds = get_post_meta( get_the_ID(), 'duration', true );
+                      $minutes = (int)($seconds/60);
+                      $seconds = $seconds%60;
+                      if ($seconds < 10) $seconds = '0'.$seconds;
+                    ?>
+                    <li>
+                      <a href="<?php the_permalink(); ?>">
+                        <?php the_post_thumbnail("tiny"); ?>
+                        <div class='track-info'>
+                          <h2><?php echo $song; ?></h2>
+                          <h3><?php echo $artist; ?></h3>
+                          <div class='duration'><?php echo $minutes.":".$seconds; ?></div>
+                        </div>
+                      </a>
+                    </li>
+                  <?php endwhile; ?>
+                </ul>
+              <?php endif; ?>
+              <?php wp_reset_postdata(); ?>
+            <?php endif; ?>
+          </div>
+
+	        <div class="post-sidebar-widget">
+        		<?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('widget-area-post-sidebar')) ?>
+        	</div>
         </td>
       </tr>
     </table>

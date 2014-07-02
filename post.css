@@ -1,0 +1,65 @@
+
+.single .left {
+    width: 680px;
+    vertical-align: top;
+}
+
+.single .left h2.artist {
+    margin: 0px;
+    font-size: 1.3em;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.single .left h1.song {
+    margin: 0px;
+}
+
+.single .right {
+    width: 300px;
+    vertical-align: top;
+}
+
+.single .left .date  {
+    font-size: 1.3em;
+}
+
+.artist-photo {
+    float: left;
+}
+
+.tracklist ul {
+    padding: 0px;
+    list-style-type: none;
+}
+
+.recommended ul {
+    padding: 0px;
+    list-style-type: none;
+}
+
+.tracklist li, .recommended li {
+    margin: 6px 0px;
+}
+
+.tracklist img, .recommended img {
+    vertical-align: top;
+}
+
+.tracklist h2, .recommended h2 {
+    display: inline;
+}
+
+.tracklist ul li a, .recommended ul li a {
+    display: block;
+}
+
+.track-info {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.track-info h3 {
+    padding: 0px;
+    margin: 0px;
+}

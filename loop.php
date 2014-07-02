@@ -11,11 +11,7 @@
 		<?php endif; ?>
 		<!-- /post thumbnail -->
 
-    <?php
-      $artist = preg_replace('/ ("|\'|&).*/', '', get_the_title());
-      preg_match('/("|\'|;)(.*)("|\'|&)/', get_the_title(), $song);
-      $song = $song[2];
-    ?>
+    <?php list($artist, $song) = getArtistAndSong( get_the_title( get_the_ID() ) ); ?>
 
 		<!-- post title -->
 		<h2>

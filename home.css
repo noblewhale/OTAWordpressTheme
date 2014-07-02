@@ -1,0 +1,64 @@
+/* Latest and Upcoming Sessions */
+.latest article, .upcoming article {
+	width: 304px;
+	float: left;
+	display: block;
+	margin: 6px;
+}
+
+section.latest, section.upcoming {
+	clear: both;
+	width: 980px;
+	display: block;
+	height: 370px;
+	padding: 0px 15px;
+}
+
+/* Middle Widgets */
+.middle-widget {
+	width: 50%;
+	height: 214px;
+	float: left;
+	}
+
+	.middle-widget .widget_text, .middle-widget .widget_text .textwidget {
+		height: 214px;
+	}
+
+
+	.middle-widget .textwidget {
+		float: left;
+		text-align: center;
+		vertical-align: middle;
+                width: 100%;
+		}
+
+		.middle-widget .textwidget a {
+			vertical-align: middle;
+			line-height: 214px;
+			font-size: 3em;
+			font-weight: bold;
+		}
+
+/* Slider */
+.advs-title.artist {
+	margin-top: 0px !important;
+	margin-bottom: 0px !important;
+	}
+
+	advs-title.artist a {
+		font-size: .8em !important;
+		margin-top: 0px !important;
+	}
+
+.advs-title.song {
+	margin-bottom: 0px !important;
+	}
+
+	.advs-title.song a {
+		margin-bottom: 0px !important;
+	}
+
+.advps-excerpt-one {
+       height: auto !important;
+}
