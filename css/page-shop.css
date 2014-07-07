@@ -1,0 +1,11 @@
+
+.bc-plugin-product.my-product {
+    display: inline-block;
+    width: 220px;
+    height: 220px;
+    margin: 8px;
+}
+
+.bc-plugin-product.my-product img {
+    width: 100%;
+}

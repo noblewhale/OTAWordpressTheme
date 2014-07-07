@@ -1,6 +1,7 @@
 
 .single .left {
     width: 680px;
+    padding: 0px 15px;
     vertical-align: top;
 }
 
@@ -24,8 +25,9 @@
     font-size: 1.3em;
 }
 
-.artist-photo {
-    float: left;
+.single .left .table-wrap {
+    width: 100%;
+    height: 100%;
 }
 
 .tracklist ul {
@@ -62,4 +64,54 @@
 .track-info h3 {
     padding: 0px;
     margin: 0px;
+}
+
+.artist-photo {
+    height: 100%;
+    float: left;
+}
+
+.artist-photo .content {
+    height: inherit;
+}
+
+.external-links-outer {
+    max-width: 80%;
+    display: inline-block;
+    float: right;
+    height: 100%;
+    margin: 0px 0px 0px 12px;
+    padding: 5px 10px;
+    border: 1px solid black;
+}
+
+.external-links-outer .content
+{
+    height: inherit;
+    overflow-y: auto;
+}
+
+.external-links {
+    font-size: 1.5em;
+    white-space: nowrap;
+}
+
+.external-links a {
+    line-height: 32px;
+}
+
+.external-links img {
+    width: 25px;
+    height: 25px;
+    margin: 2px 4px 2px 0px;
+    vertical-align: top;
+}
+
+.content p:first-of-type {
+    font-size: 1.3em;
+    padding-top: 12px;
+}
+
+.content .wiki-link {
+    font-size: 1.3em;
 }

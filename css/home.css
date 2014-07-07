@@ -1,18 +1,20 @@
-/* Latest and Upcoming Sessions */
-.latest article, .upcoming article {
-	width: 304px;
-	float: left;
-	display: block;
-	margin: 6px;
+section.slider {
+    padding: 0px;
 }
 
+/* Latest and Upcoming Sessions */
 section.latest, section.upcoming {
-	clear: both;
-	width: 980px;
-	display: block;
-	height: 370px;
-	padding: 0px 15px;
-}
+    clear: both;
+    width: 980px;
+    display: block;
+    height: 370px;
+    }
+    .latest article, .upcoming article {
+        width: 304px;
+        float: left;
+        display: block;
+        margin: 6px;
+    }
 
 /* Middle Widgets */
 .middle-widget {

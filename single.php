@@ -35,7 +35,7 @@
           $artistThumbnail = get_the_post_thumbnail($artist_page->ID, "fullsize");
         }
         
-        $hasExternalLinks = get_post_meta( get_the_ID(), 'external_link_url0', true) != ""; 
+        $hasExternalLinks = get_post_meta( $artist_page->ID, 'external_link_url0', true) != ""; 
 
         if ($artist)
         {
@@ -131,45 +131,49 @@
               <?php endif; ?>
             </a>
           
-          <!-- Artist info -->
-          <div class='artist'>
-
-            <!-- Artist photo -->
-            <div class='artist-photo'>
-              <?php if ($artistThumbnail) : ?>
-                <?php echo $artistThumbnail; ?> 
-              <?php else : ?>
-                <img src='<?php echo $wikipediaImageURL; ?>' />
-              <?php endif; ?>
-            </div>
-          
-            <!-- External links -->
-            <?php if ($hasExternalLinks) : ?>
-              <div class='external-links-outer'>
-                <?php for ($i=0; $i < 5; $i++) : ?>
-                  <?php if (get_post_meta( get_the_ID(), 'external_link_url'.$i, true) ) : ?>
-                    <div class='external-links'>
-                      <?php echo wp_get_attachment_image( get_post_meta( get_the_ID(), 'external_link_icon'.$i, true), 32, true); ?>
-                      <a rel='nofollow' target='_blank' href='<?php echo get_post_meta(get_the_ID(), 'external_link_url'.$i, true); ?>'>
-                        <?php echo get_post_meta(get_the_ID(), 'external_link_label'.$i, true); ?>
-                      </a>
+            <!-- Artist info -->
+            <div class='artist'>
+                <div class='table-wrap'>
+                    <!-- External links -->
+                    <?php if ($hasExternalLinks) : ?>
+                        <div class='external-links-outer'>
+                            <div class='content'>
+                                <?php for ($i=0; $i < 5; $i++) : ?>
+                                  <?php if (get_post_meta( $artist_page->ID, 'external_link_url'.$i, true) ) : ?>
+                                    <div class='external-links'>
+                                      <a rel='nofollow' target='_blank' href='<?php echo get_post_meta( $artist_page->ID, 'external_link_url'.$i, true ); ?>'>
+                                        <?php echo wp_get_attachment_image( get_post_meta( $artist_page->ID, 'external_link_icon'.$i, true), 32, true ); ?>
+                                        <?php echo get_post_meta( $artist_page->ID, 'external_link_label'.$i, true ); ?>
+                                      </a>
+                                    </div>
+                                  <?php endif; ?>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <!-- Artist photo -->
+                    <div class='artist-photo'>
+                        <div class='content'>
+                            <?php if ($artistThumbnail) : ?>
+                                <?php echo $artistThumbnail; ?> 
+                            <?php else : ?>
+                                <img src='<?php echo $wikipediaImageURL; ?>' />
+                            <?php endif; ?>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Content -->
+                <div class='content <?php if ($artistThumbnail || $wikipediaImageURL) echo 'clear-both'; ?>'>
+                  <?php echo format_content($artist_page->post_content); ?>
+                  <?php if ((!$haveArtistPage || empty($artist_page->post_content)) && !empty($wikiSummary)) : echo $wikiSummary; ?>
+                    <span class='wiki-link'>
+                      <a href='<?php echo $wikiLink; ?>'>Read more..</a>
+                    </span>
                   <?php endif; ?>
-                <?php endfor; ?>
-              </div>
-            <?php endif; ?>
+                </div>
 
-            <!-- Content -->
-            <div class='content <?php if ($artistThumbnail || $wikipediaImageURL) echo 'clear-both'; ?>'>
-              <?php echo format_content($artist_page->post_content); ?>
-              <?php if (!$hasArtistPage && !empty($wikiSummary)) : echo $wikiSummary; ?>
-                <span class='wiki-link'>
-                  <a href='<?php echo $wikiLink; ?>'>Read more..</a>
-                </span>
-              <?php endif; ?>
             </div>
-
-          </div>
         </td>
         
         <!-- Right column. Track list, recommended sessions, widget space. -->

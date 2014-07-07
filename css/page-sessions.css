@@ -13,16 +13,15 @@
 }
 
 .sessions .post { 
-    float: left; 
-    width: 224px;
-    height: 224px;
-    margin: 10px;
-    border: none; 
+    display: inline-block;
+    width: 220px;
+    height: 220px;
+    margin: 7px;
 }
 
 .sessions .post img { 
-    width: 224px; 
-    height: 224px; 
+    width: 220px; 
+    height: 220px; 
     border: none; 
 }
 
@@ -30,5 +29,4 @@
 .sessions .letter {
     font-weight: bold;
     clear: both;
-    padding-top: 10px;
 }

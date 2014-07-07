@@ -2,9 +2,7 @@
 	
 	$(function () {
 		
-		'use strict';
-		
-		// DOM ready, take it away
+		$(".artist-photo").width($(".artist").width() - $(".external-links-outer").outerWidth(true));
 		
 	});
 	

@@ -6,6 +6,9 @@ $startLetter = '';
     <?php 
         $title = get_the_title();
         list($artist, $song) = getArtistAndSong($title);
+        
+        if (strtolower($artist) === strtolower($lastArtist) || empty($artist)) continue;
+        $lastArtist = $artist;
     ?>
 
     <?php if ($_GET['_special'] == 0 && $_GET['_artist'] == 0 && $_GET['cat'] == 0 && ucfirst($title[0]) != $currentLetter) : ?>
@@ -28,20 +31,10 @@ $startLetter = '';
 
         <!-- post title -->
         <a class="title" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-            <?php if ($song && $artist) : ?>
-                <h2 class='song'><?php echo $song; ?></h2>
-                <h3 class='artist'><?php echo $artist; ?></h3>
-            <?php else : ?>
-                <h2><?php the_title(); ?></h2>
-            <?php endif; ?>
+            <h2><?php echo $artist; ?></h2>
         </a>
         <a class="title transparent-background">
-            <?php if ($song && $artist) : ?>
-                <h2 class='song'><?php echo $song; ?></h2>
-                <h3 class='artist'><?php echo $artist; ?></h3>
-            <?php else : ?>
-                <h2><?php the_title(); ?></h2>
-            <?php endif; ?>
+            <h2><?php echo $artist; ?></h2>
         </a>
         <!-- /post title -->
     </article>

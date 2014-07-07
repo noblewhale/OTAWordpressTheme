@@ -1,14 +1,14 @@
 /*
-        Theme Name: OTA
-        Theme URI: http://offtheavenue.tv
-        Description: Custom made theme for Off the Avenue
-        Version: 1.0.0
-        Author: Zeb Long
-        Author URI: http://zebadiah.me
-        Tags: HTML5, CSS3
+    Theme Name: OTA
+    Theme URI: http://offtheavenue.tv
+    Description: Custom made theme for Off the Avenue
+    Version: 1.0.0
+    Author: Zeb Long
+    Author URI: http://zebadiah.me
+    Tags: HTML5, CSS3
 
-        License: MIT
-        License URI: http://opensource.org/licenses/mit-license.php
+    License: MIT
+    License URI: http://opensource.org/licenses/mit-license.php
 */
 
 /* global box-sizing */
@@ -30,6 +30,10 @@ body {
     color:#444;
 }
 /* clear */
+.clear-both {
+    clear: both;
+}
+
 .clear:before,
 .clear:after {
     content:' ';
@@ -72,8 +76,8 @@ input:focus {
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
-    max-width:980px;
-    width:980px;
+    max-width: 980px;
+    width: 980px;
     padding: 10px 0px;
     margin: 0px auto;
     position:relative;
@@ -81,6 +85,7 @@ input:focus {
 
 .header {
     position: relative;
+    margin: 0px 15px 0px 4px;
 }
 
 .footer {
@@ -89,6 +94,10 @@ input:focus {
     padding: 0px 2px;
     margin: 0px auto;
     clear: both; 
+}
+
+section {
+    padding: 0px 15px;
 }
 
 .copyright {
@@ -126,7 +135,7 @@ nav .menu-item {
  * Search results 
  */
 .search .post { 
-    float: left; 
+    display: inline-block;
     width: 224px;
     height: 224px;
     border: none; 
@@ -151,66 +160,35 @@ nav .menu-item {
 /*
  * Post lists
  */
-.post .artist {
-    font-size: .8em;
-    font-weight: bold;
-}
-
-.post .song {
-    display: block;
-}
-
 .post {
     position: relative;
 }
 
-.post h2{
+.post .artist {
+    font-style: italic;
+}
+
+.post a.title {
+    display: block;
     position: absolute;
     top: 0px;
     width: 100%;
-    z-index: 2;
+    z-index: 1;
     padding: 10px;
     margin: 0px;
 }
 
-.post h2 a {
+.post .title h1,
+.post .title h2,
+.post .title h3 {
+    margin: 0px;
     color: white;
 }
 
-.post h2.transparent-background {
+.post .title.transparent-background {
     opacity: .4;
     background-color: black;
     z-index: 1;
-}
-
-.bc-plugin-product.my-product {
-    display: inline-block;
-    width: 220px;
-    height: 220px;
-    margin: 10px;
-}
-
-.external-links-outer {
-    float: right;
-    max-width: 200px;
-    margin: 0px 25px;
-    padding: 5px 10px;
-    border: 1px solid black;
-}
-
-.external-links {
-    font-size: 1.5em;
-}
-
-.external-links a {
-    line-height: 32px;
-}
-
-.external-links img {
-    width: 25px;
-    height: 25px;
-    margin: 2px 6px 2px 0px;
-    vertical-align: top;
 }
 
 /*------------------------------------*\
@@ -305,58 +283,4 @@ a img.aligncenter {
 }
 .bypostauthor {
 
-}
-
-/*------------------------------------*\
-    PRINT
-\*------------------------------------*/
-
-@media print {
-    * {
-        background:transparent !important;
-        color:#000 !important;
-        box-shadow:none !important;
-        text-shadow:none !important;
-    }
-    a,
-    a:visited {
-        text-decoration:underline;
-    }
-    a[href]:after {
-        content:" (" attr(href) ")";
-    }
-    abbr[title]:after {
-        content:" (" attr(title) ")";
-    }
-    .ir a:after,
-    a[href^="javascript:"]:after,
-    a[href^="#"]:after {
-        content:"";
-    }
-    pre,blockquote {
-        border:1px solid #999;
-        page-break-inside:avoid;
-    }
-    thead {
-        display:table-header-group;
-    }
-    tr,img {
-        page-break-inside:avoid;
-    }
-    img {
-        max-width:100% !important;
-    }
-    @page {
-        margin:0.5cm;
-    }
-    p,
-    h2,
-    h3 {
-        orphans:3;
-        widows:3;
-    }
-    h2,
-    h3 {
-        page-break-after:avoid;
-    }
 }
