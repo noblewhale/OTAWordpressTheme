@@ -168,7 +168,7 @@
                 <!-- Content -->
                 <div class='content <?php if ($artistThumbnail || $wikipediaImageURL) echo 'clear-both'; ?>'>
                   <?php echo format_content($artist_page->post_content); ?>
-                  <?php if ((!$haveArtistPage || empty($artist_page->post_content)) && !empty($wikiSummary)) : echo $wikiSummary; ?>
+                  <?php if ((!$hasArtistPage || empty($artist_page->post_content)) && !empty($wikiSummary)) : echo $wikiSummary; ?>
                     <span class='wiki-link'>
                       <a href='<?php echo $wikiLink; ?>'>Read more..</a>
                     </span>
