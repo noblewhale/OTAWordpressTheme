@@ -136,15 +136,15 @@ nav .menu-item {
  */
 .search .post { 
     display: inline-block;
-    width: 224px;
-    height: 224px;
+    width: 220px;
+    height: 220px;
     border: none; 
-    margin: 10px; 
+    margin: 7px; 
 }
 
 .search .post img { 
-    width: 224px; 
-    height: 224px; 
+    width: 220px; 
+    height: 220px; 
     border: none; 
 }
 
