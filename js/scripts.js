@@ -1,9 +1,16 @@
-(function ($, root, undefined) {
+(function ($, root, undefined) 
+{
 	
-	$(function () {
-		
-		$(".artist-photo").width($(".artist").width() - $(".external-links-outer").outerWidth(true));
-		
+	$(function () 
+        {
+                adjust();
+                $(window).resize(adjust);
 	});
+        
+        function adjust() 
+        {
+            $(".artist-photo").width($(".artist").width() - $(".external-links-outer").outerWidth(true));
+            $(".about article").width($(".about section").width() - $(".about .external-links-outer").outerWidth(true) - 5);
+        }
 	
 })(jQuery, this);

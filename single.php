@@ -134,6 +134,7 @@
             <!-- Artist info -->
             <div class='artist'>
                 <div class='table-wrap'>
+                    
                     <!-- External links -->
                     <?php if ($hasExternalLinks) : ?>
                         <div class='external-links-outer'>
@@ -151,6 +152,7 @@
                             </div>
                         </div>
                     <?php endif; ?>
+                    
                     <!-- Artist photo -->
                     <div class='artist-photo'>
                         <div class='content'>

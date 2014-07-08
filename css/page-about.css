@@ -1,0 +1,44 @@
+.external-links-outer {
+    vertical-align: top;
+    max-width: 80%;
+    display: inline-block;
+    height: 100%;
+    margin: 17px 0px 0px 12px;
+    padding: 5px 10px;
+    border: 1px solid black;
+}
+
+.external-links-outer .content
+{
+    padding: 2px 0px;
+    height: inherit;
+    overflow-y: auto;
+}
+
+.external-links {
+    font-size: 1.5em;
+    white-space: nowrap;
+    margin: 8px 0px;
+}
+
+.external-links a div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.external-links img {
+    width: 25px;
+    height: 25px;
+    margin: -2px 4px 0px 0px;
+    vertical-align: middle;
+}
+
+article {
+    display: inline-block;
+    height: 100%;
+    vertical-align: top;
+}
+
+article p {
+    font-size: 1.3em;
+}
