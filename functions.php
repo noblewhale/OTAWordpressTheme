@@ -506,6 +506,7 @@ function create_post_type_html5()
         ),
         'public' => true,
         'query_var'=> true,
+        'show_admin_column' => true,
         'rewrite' => false//array('slug' => 'artist', 'with_front' => true)
       )
     );

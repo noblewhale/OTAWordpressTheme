@@ -48,8 +48,9 @@ section.latest, section.upcoming {
 	margin-bottom: 0px !important;
 	}
 
-	advs-title.artist a {
+	.advs-title.artist a {
 		font-size: .8em !important;
+                font-style: italic;
 		margin-top: 0px !important;
 	}
 
