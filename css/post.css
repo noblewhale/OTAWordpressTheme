@@ -1,28 +1,43 @@
+main {
+    padding: 0px;
+}
+
+article {
+    height: 551px;
+}
 
 .single .left {
     width: 680px;
-    padding: 0px 15px;
+    padding: 0px 20px;
     vertical-align: top;
 }
 
 .single .left h2.artist {
-    margin: 0px;
+    margin: 0px 0px 8px 0px;
     font-size: 1.3em;
     font-weight: normal;
     font-style: italic;
+    display: block;
 }
 
 .single .left h1.song {
-    margin: 0px;
+    margin: 10px 0 0 0;
+    line-height: .9em;
 }
 
 .single .right {
-    width: 300px;
+    width: 340px;
     vertical-align: top;
+    background-color: #edeee3;
+    padding: 0px;
+    border-left: 4px solid #e0e0e0;
 }
 
 .single .left .date  {
+    display: none;
     font-size: 1.3em;
+    float: right;
+    margin-top: 12px;
 }
 
 .single .left .table-wrap {
@@ -30,22 +45,48 @@
     height: 100%;
 }
 
+div.artist {
+    margin-top: 4px;
+}
+
 .tracklist ul {
     padding: 0px;
+    margin: 0px;
     list-style-type: none;
+}
+
+.recommended h1, .tracklist h1 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px 14px;
+    line-height: 1.95em;
 }
 
 .recommended ul {
     padding: 0px;
+    margin: 0px;
     list-style-type: none;
 }
 
+.recommended li:hover, .tracklist li:hover {
+    background-color: white;
+}
+
 .tracklist li, .recommended li {
-    margin: 6px 0px;
+    padding: 0px 0px;
+    border-top: 3px solid #e0e0e0;
+}
+
+.tracklist li:last-child, .recommended li:last-child {
+    border-bottom: 3px solid #e0e0e0;
 }
 
 .tracklist img, .recommended img {
     vertical-align: top;
+    width: 72px;
+    height: 72px;
+    
+    border-right: 2px solid #e0e0e0;
 }
 
 .tracklist h2, .recommended h2 {
@@ -57,22 +98,40 @@
 }
 
 .track-info {
+    width: 245px;
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
 }
 
 .track-info h3 {
-    padding: 0px;
+    padding: 0px 0px 0px 0px;
     margin: 0px;
+    color: #666;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 1.25em;
 }
 
-.artist-photo {
-    height: 100%;
-    float: left;
+.track-info h2 {
+    display: inline-block;
+    position: relative;
+    font-size: 1.75em;
+    line-height: 1em;
+    margin-top: 7px;
+    margin-bottom: 0px;
 }
 
-.artist-photo .content {
-    height: inherit;
+.track-info .duration {
+    color: #666;
+    font-size: 1.25em;
+    margin-top: 3px;
+}
+
+.artist-photo img {
+    width: 614px;
 }
 
 .external-links-outer {
@@ -80,20 +139,27 @@
     display: inline-block;
     float: right;
     height: 100%;
-    margin: 0px 0px 0px 12px;
-    padding: 5px 10px;
-    border: 1px solid black;
+    padding: 3px 8px;
+    border: 2px solid #e0e0e0;
+    background-color: #edeee3;
+    margin: 3px 0px 6px 10px;
+    min-width: 210px;
 }
 
-.external-links-outer .content
-{
+.external-links-outer div {
     height: inherit;
     overflow-y: auto;
 }
 
 .external-links {
+    padding: 5px 6px;
     font-size: 1.5em;
     white-space: nowrap;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.external-links:last-of-type {
+    border-bottom: none;
 }
 
 .external-links a {
@@ -103,15 +169,40 @@
 .external-links img {
     width: 25px;
     height: 25px;
-    margin: 2px 4px 2px 0px;
+    margin: 2px 8px 2px 0px;
     vertical-align: top;
 }
 
-.content p:first-of-type {
-    font-size: 1.3em;
-    padding-top: 12px;
+.content {
+    padding: 15px 0px;
+}
+
+.content p {
+    margin: 0px 0px 16px 0px;
+    font-size: 1.25em;
 }
 
 .content .wiki-link {
     font-size: 1.3em;
+}
+
+.sky-form {
+    margin-left: 0px !important;
+}
+
+.post-sidebar-widget {
+    vertical-align: bottom;
+    background-image: url(/wp-content/themes/ota/img/offtheavenewthumtransparent-watermark.png);
+    background-position: -35px -15px;
+    background-repeat: no-repeat;
+    height: 115px;
+    margin-top: 35px;
+    border-top: 3px solid #e0e0e0;
+    border-bottom: 3px solid #e0e0e0;
+}
+
+.post-sidebar-widget .chimpy_lite_widget_content {
+    width: 280px;
+    height: 115px;
+    margin: 0px auto 10px auto;
 }

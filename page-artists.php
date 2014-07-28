@@ -47,7 +47,32 @@ if (isset($_GET['useArtist'])) {
                 </form>
             </div>
         </div>
-
+        <div class='letters-wrapper'>
+            <div class='letters'>
+                <div class='extra-side'></div>
+                <div class='letter-cube'>
+                    
+                    <div class='side1'></div>
+                    <div class='side2'></div>
+                    <div class='side3'></div>
+                    <div class='side4'></div>
+                    
+                    <div class='sideRight'></div>
+                </div>
+                <div class='just-the-letters'>
+                    <?php
+                        $letters = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 
+                                         'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 
+                                         'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+                        foreach($letters as $letter) :
+                    ?>
+                        <a href='#<?php echo $letter; ?>'><?php echo $letter; ?></a>
+                    <?php
+                        endforeach;
+                    ?>
+                </div>
+            </div>
+        </div>
         <?php
             query_posts(array(
                 // Exclude upcoming

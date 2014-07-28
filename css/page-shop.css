@@ -1,3 +1,6 @@
+main section {
+    overflow: auto;
+}
 
 .bc-plugin-product.my-product {
     display: inline-block;

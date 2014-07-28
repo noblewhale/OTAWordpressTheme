@@ -1,67 +1,137 @@
+.home .post {
+    height: 300px;
+    width: 300px;
+}
+
 section.slider {
     padding: 0px;
 }
 
+main h1 {
+    clear: both;
+    margin: 0px;
+    padding: .67em 15px;
+}
+
+section.widget-wrapper {
+    height: 120px;
+    padding: 0px;
+    box-shadow: 0px 1px 8px #aaa;
+}
+
 /* Latest and Upcoming Sessions */
 section.latest, section.upcoming {
+    overflow: visible;
     clear: both;
     width: 980px;
     display: block;
-    height: 370px;
+    height: 336px;
+    padding: 0px 15px;
     }
     .latest article, .upcoming article {
-        width: 304px;
         float: left;
         display: block;
-        margin: 6px;
     }
 
+section.latest {
+    box-shadow: 0px 3px 5px 0px #bbb;
+}
+
 /* Middle Widgets */
+.middle-widget.widget-center {
+    width: 328px;
+    border-left: 1px solid #aaa;
+    border-right: 1px solid #aaa;
+}
 .middle-widget {
-	width: 50%;
-	height: 214px;
-	float: left;
-	}
+    width: 326px;
+    height: 120px;
+    float: left;
+    transition: box-shadow .25s;
+    }
 
-	.middle-widget .widget_text, .middle-widget .widget_text .textwidget {
-		height: 214px;
-	}
+    .middle-widget .widget_text, .middle-widget .widget_text .textwidget {
+        height: 120px;
+    }
 
+    .middle-widget .textwidget {
+        float: left;
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+        }
 
-	.middle-widget .textwidget {
-		float: left;
-		text-align: center;
-		vertical-align: middle;
-                width: 100%;
-		}
+        .middle-widget a.get-the-app {
+            padding: 11px 0px 0px 30px;
+            line-height: 25px;
+            text-align: left;
+            display: block;
+        }
+        
+        .middle-widget a.get-the-app div {
+            font-size: 4em;
+            font-weight: bold;
+            font-family: bebas_neueregular;
+            margin-top: 23px;
+        }
+        
+        .middle-widget a.get-the-app .sub {
+            font-family: sans-serif;
+            font-size: .43em;
+        }
+ 
+        .middle-widget .get-the-app {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .middle-widget .get-the-app img {
+            vertical-align: middle;
+            margin-right: 25px;
+            float: left;
+        }
 
-		.middle-widget .textwidget a {
-			vertical-align: middle;
-			line-height: 214px;
-			font-size: 3em;
-			font-weight: bold;
-		}
+        .middle-widget.widget-right {
+            background-image: url(/wp-content/themes/ota/img/offtheavenewthumtransparent-watermark.png);
+            background-position: -38px -13px;
+            background-repeat: no-repeat;
+        }
+        
+        .middle-widget:hover {
+            position: relative;
+            box-shadow: 4px 4px 8px #aaa;
+            z-index: 2;
+        }
 
+        .middle-widget a.northave{
+            display: block;
+            width: 100%;
+            height: 100%;
+            background-image: url(/wp-content/themes/ota/img/northave_logo.png);
+            background-repeat: no-repeat;
+            background-position: 13px 0px;
+        }
+        
 /* Slider */
 .advs-title.artist {
-	margin-top: 0px !important;
-	margin-bottom: 0px !important;
-	}
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    }
 
-	.advs-title.artist a {
-		font-size: .8em !important;
-                font-style: italic;
-		margin-top: 0px !important;
-	}
+    .advs-title.artist a {
+        font-size: .8em !important;
+        font-style: italic;
+        margin-top: 0px !important;
+    }
 
 .advs-title.song {
-	margin-bottom: 0px !important;
-	}
+    margin-bottom: 0px !important;
+    }
 
-	.advs-title.song a {
-		margin-bottom: 0px !important;
-	}
+    .advs-title.song a {
+        margin-bottom: 0px !important;
+    }
 
 .advps-excerpt-one {
-       height: auto !important;
+    height: auto !important;
 }

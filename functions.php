@@ -1,8 +1,8 @@
 <?php
 /*
- *  Author: Todd Motto | @toddmotto
- *  URL: html5blank.com | @html5blank
- *  Custom functions, support, custom post types and more.
+ *  Author: Zeb Long
+ *  URL: zebadiah.me
+ *  Custom theme created for North Avenue Studios by Code Source LLC
  */
 
 /*------------------------------------*\
@@ -49,17 +49,28 @@ function format_content($content)
 
 function themeslug_theme_customizer( $wp_customize ) 
 {
-    // Fun code will go here
     $wp_customize->add_section( 'themeslug_logo_section' , array(
         'title'       => __( 'Logo', 'themeslug' ),
         'priority'    => 30,
-        'description' => 'Upload a logo to replace the default site name and description in the header',
+        'description' => 'Upload a logo',
     ) );
     $wp_customize->add_setting( 'themeslug_logo' );
     $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'themeslug_logo', array(
         'label'    => __( 'Logo', 'themeslug' ),
         'section'  => 'themeslug_logo_section',
         'settings' => 'themeslug_logo',
+    ) ) );
+    
+    $wp_customize->add_section( 'themeslug_background_section' , array(
+        'title'       => __( 'Background', 'themeslug' ),
+        'priority'    => 35,
+        'description' => 'Upload a background',
+    ) );
+    $wp_customize->add_setting( 'themeslug_background' );
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'themeslug_background', array(
+        'label'    => __( 'Background', 'themeslug' ),
+        'section'  => 'themeslug_background_section',
+        'settings' => 'themeslug_background',
     ) ) );
 }
 add_action('customize_register', 'themeslug_theme_customizer');
@@ -169,8 +180,11 @@ function html5blank_header_scripts()
     	wp_register_script('conditionizr', get_template_directory_uri() . '/js/lib/conditionizr-4.3.0.min.js', array(), '4.3.0'); // Conditionizr
         wp_enqueue_script('conditionizr'); // Enqueue it!
 
-        wp_register_script('modernizr', get_template_directory_uri() . '/js/lib/modernizr-2.7.1.min.js', array(), '2.7.1'); // Modernizr
+        wp_register_script('modernizr', get_template_directory_uri() . '/js/lib/jquery.easing.1.3', array('jquery'), '1.3'); // Modernizr
         wp_enqueue_script('modernizr'); // Enqueue it!
+        
+        wp_register_script('easing', get_template_directory_uri() . '/js/lib/modernizr-2.7.1.min.js', array(), '2.7.1'); // Modernizr
+        wp_enqueue_script('easing'); // Enqueue it!
 
         wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0'); // Custom scripts
         wp_enqueue_script('html5blankscripts'); // Enqueue it!
@@ -180,8 +194,8 @@ function html5blank_header_scripts()
 // Load HTML5 Blank conditional scripts
 function html5blank_conditional_scripts()
 {
-    if (is_page('pagenamehere')) {
-        wp_register_script('scriptname', get_template_directory_uri() . '/js/scriptname.js', array('jquery'), '1.0.0'); // Conditional script(s)
+    if (is_page('Artists')) {
+        wp_register_script('scriptname', get_template_directory_uri() . '/js/artists.js', array('jquery'), '1.0.0'); // Conditional script(s)
         wp_enqueue_script('scriptname'); // Enqueue it!
     }
 }
@@ -192,7 +206,7 @@ function html5blank_styles()
     wp_register_style('normalize', get_template_directory_uri() . '/css/normalize.min.css', array(), '1.0', 'all');
     wp_enqueue_style('normalize'); // Enqueue it!
 
-    wp_register_style('html5blank', get_template_directory_uri() . '/css/style.css', array(), '1.0', 'all');
+    wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
     wp_enqueue_style('html5blank'); // Enqueue it!
 }
 
@@ -273,6 +287,17 @@ if (function_exists('register_sidebar'))
         'name' => __('Widget Area 2', 'html5blank'),
         'description' => __('Description for this widget-area...', 'html5blank'),
         'id' => 'widget-area-2',
+        'before_widget' => '<div id="%1$s" class="%2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3>',
+        'after_title' => '</h3>'
+    ));
+    
+     // Define Sidebar Widget Area 3
+    register_sidebar(array(
+        'name' => __('Widget Area 3', 'html5blank'),
+        'description' => __('Description for this widget-area...', 'html5blank'),
+        'id' => 'widget-area-3',
         'before_widget' => '<div id="%1$s" class="%2$s">',
         'after_widget' => '</div>',
         'before_title' => '<h3>',

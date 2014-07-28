@@ -63,6 +63,11 @@
             $pages = array_values($pages);
           }
           $wikiSummary = $pages[0]->extract;
+          
+          if (strpos($wikiSummary, 'may refer to') !== false)
+          {
+              $wikiSummary = "";
+          }
 
           // Grab the thumbnail
           $options = '&prop=pageimages&format=json&pithumbsize=548';
@@ -135,10 +140,23 @@
             <div class='artist'>
                 <div class='table-wrap'>
                     
+                    <!-- Artist photo -->
+                    <div class='artist-photo'>
+                        <?php if ($artistThumbnail) : ?>
+                            <?php echo $artistThumbnail; ?> 
+                        <?php else : ?>
+                            <img src='<?php echo $wikipediaImageURL; ?>' />
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class='content <?php if ($artistThumbnail || $wikipediaImageURL) echo 'clear-both'; ?>'>
+                    
                     <!-- External links -->
                     <?php if ($hasExternalLinks) : ?>
                         <div class='external-links-outer'>
-                            <div class='content'>
+                            <div class=''>
                                 <?php for ($i=0; $i < 5; $i++) : ?>
                                   <?php if (get_post_meta( $artist_page->ID, 'external_link_url'.$i, true) ) : ?>
                                     <div class='external-links'>
@@ -153,26 +171,13 @@
                         </div>
                     <?php endif; ?>
                     
-                    <!-- Artist photo -->
-                    <div class='artist-photo'>
-                        <div class='content'>
-                            <?php if ($artistThumbnail) : ?>
-                                <?php echo $artistThumbnail; ?> 
-                            <?php else : ?>
-                                <img src='<?php echo $wikipediaImageURL; ?>' />
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Content -->
-                <div class='content <?php if ($artistThumbnail || $wikipediaImageURL) echo 'clear-both'; ?>'>
-                  <?php echo format_content($artist_page->post_content); ?>
-                  <?php if ((!$hasArtistPage || empty($artist_page->post_content)) && !empty($wikiSummary)) : echo $wikiSummary; ?>
-                    <span class='wiki-link'>
-                      <a href='<?php echo $wikiLink; ?>'>Read more..</a>
-                    </span>
-                  <?php endif; ?>
+                    <?php echo format_content($artist_page->post_content); ?>
+                    <?php if ((!$hasArtistPage || empty($artist_page->post_content)) && !empty($wikiSummary)) : echo $wikiSummary; ?>
+                        <span class='wiki-link'>
+                            <a href='<?php echo $wikiLink; ?>'>Read more..</a>
+                        </span>
+                    <?php endif; ?>
+                    
                 </div>
 
             </div>
@@ -279,7 +284,6 @@
               <?php wp_reset_postdata(); ?>
             <?php endif; ?>
           </div>
-
 	        <div class="post-sidebar-widget">
         		<?php if(!function_exists('dynamic_sidebar') || !dynamic_sidebar('widget-area-post-sidebar')) ?>
         	</div>

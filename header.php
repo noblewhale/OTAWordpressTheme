@@ -23,7 +23,7 @@
         </script>
 
 	</head>
-	<body <?php body_class(); ?>>
+	<body <?php body_class(); ?> style='background-image: url(<?php echo esc_url( get_theme_mod( 'themeslug_background' ) ); ?>)'>
 		<!-- wrapper -->
 		<div class="wrapper">
 

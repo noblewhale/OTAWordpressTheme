@@ -1,33 +1,241 @@
-.artists .title {
+.title {
     position: relative;
+    overflow: auto;
+    padding-left: 15px;
 }
 
-.artists .title .filters {
+.title .filters {
     position: absolute;
     top: 6px;
     right: 0px;
 }
 
-.artists .title form {
+.title form {
     display: inline;
 }
 
-.artists .post { 
+.post { 
     display: inline-block;
     width: 220px;
     height: 220px;
-    margin: 7px;
 }
 
-.artists .post img { 
-    width: 220px; 
-    height: 220px; 
+.post img {
     border: none; 
 }
 
-
-.artists .letter {
-    font-weight: bold;
-    clear: both;
+.letter-section a.letter-anchor {
+    display: block;
     padding-top: 10px;
+    width: 50px;
+}
+
+.letter-section {
+    box-shadow: 0px 5px 5px 0px #bbb;
+    padding: 0px 15px 15px 15px;
+}
+
+.letter-section:last-of-type {
+    box-shadow: none;
+}
+
+.letter {
+    font-weight: bold;
+    font-size: 3.5em;
+    margin: 15px 12px;
+    clear: both;
+    position: relative;
+}
+
+.letters-wrapper {
+    width: 100%;
+    height: 57px;
+    /* Transforms or perspective stuff here breaks chrome fixed positioning */
+}
+
+.letters {
+    font-family: bebas_neueregular;
+    text-align: center;
+    font-size: 3.5em;
+    width: 980px;
+    height: 57px;
+    position: relative;
+    z-index: 100;
+    
+    perspective: 800px;
+    perspective-origin: 50% 50%;
+}
+
+.letter-cube {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    float: left;
+    width: 70px;
+    height: 57px;
+    position: relative;
+    -webkit-transform-origin: 50% 50% -28px;
+    -moz-transform-origin: 50% 50% -28px;
+    transform-origin: 50% 50% -28px;
+}
+
+.letter-cube div {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    -webkit-transform-origin: 50% 50% -28px;
+    -moz-transform-origin: 50% 50% -28px;
+    transform-origin: 50% 50% -28px;
+}
+
+.letter-cube .sideRight {
+    box-shadow: none;
+    top: 0px;
+    right: 0px;
+    width: 57px;
+    height: 57px;
+    background-color: #1A1825;
+    -webkit-transform: rotateY(-270deg);
+    -moz-transform: rotateY(-270deg);
+    transform: rotateY(-270deg);
+}
+.extra-side {
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    
+    position: absolute;
+    box-shadow: none;
+    top: 0px;
+    left: 0px;
+    width: 57px;
+    height: 57px;
+    background-color: white;
+    -webkit-transform: rotateY(-90deg);
+    -moz-transform: rotateY(-90deg);
+    transform: rotateY(-90deg);
+    
+    -webkit-transform-origin: 50% 50% -28px;
+    -moz-transform-origin: 50% 50% -28px;
+    transform-origin: 50% 50% -28px;
+}
+.letter-cube .side1 {
+    bottom: 0px;
+    left: 0px;
+    width: 71px;
+    height: 57px;
+    background-color: #04A4CC;
+}
+.letter-cube .side3 {
+    background-color: #04A4CC;
+    bottom: 0px;
+    left: 0px;
+    width: 71px;
+    height: 57px;
+    -webkit-transform: rotateX(-180deg);
+    -moz-transform: rotateX(-180deg);
+    transform: rotateX(-180deg);
+}
+.letter-cube .side4 {
+    bottom: 0px;
+    left: 0px;
+    width: 71px;
+    height: 57px;
+    background-color: #37bdb0;
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
+}
+.letter-cube .side2 {
+    top: 0px;
+    left: 0px;
+    width: 71px;
+    height: 57px;
+    background-color: #37bdb0;
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+}
+
+.just-the-letters {
+    padding-left: 35px;
+    background-color: white;
+    float: left;
+    width: 910px;
+    height: 57px;
+    z-index: 1;
+    position: relative;
+    box-shadow: 0px 5px 5px 0px #bbb;
+}
+
+
+.letters a {
+    position: relative;
+    display: block;
+    float: left;
+    width: 32px;
+}
+
+.letters a:hover {
+    text-shadow: #1A1825 2px 3px 1px;
+    font-size: 1.3em;
+    font-weight: bold;
+    top: -13px;
+    color: #37bdb0;
+}
+
+.letters a:active {
+    text-shadow: #1A1825 1px 2px 0px;
+    font-size: 1.1em;
+    font-weight: bold;
+    top: -4px;
+}
+
+.noscroll {
+    position: fixed; 
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.boxShadowed {
+    box-shadow: 0px 5px 5px 0px #bbb;
+}
+
+.cube-wrap {
+    margin: 7px;
+}
+
+cube {
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+    perspective: 600px;
+}
+
+cube, .cube-wrap {
+    width: 220px;
+    height: 220px;
+}
+
+cube .cube-left,  cube .cube-right {
+    height: 220px;
+}
+
+cube .cube-top, cube .cube-bottom {
+    width: 220px;
+}
+
+cube .cube-left {
+    right: 220px;
+}
+
+cube .cube-top {
+    bottom: 220px;
+}
+
+cube article {
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
 }

@@ -1,3 +1,7 @@
+main section {
+    overflow: auto;
+}
+
 .external-links-outer {
     vertical-align: top;
     max-width: 80%;
